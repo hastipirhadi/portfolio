@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bodyBackground: #151312;
+  --color-bgNav: #1a1816e6;
+  --color-black: #000;
+  --color-white: #fff;
+  --color-heroBar: #1a1816;
+  --color-textGray-100: #2b2927;
+  --color-textGray-200: oklch(55.1% 0.027 264.364);
+  --color-textGray-300: rgb(43, 41, 39);
+  --color-textGray-400: oklch(70.7% 0.022 261.325);
+  --color-bgGray-100: rgb(26 24 23 / 40%);
+  --color-gray-200: rgb(37 35 33 / 80%);
+  --color-gray-300: rgb(136, 136, 136);
+  --color-iconSkill: rgb(136, 136, 136);
+  --color-orange-100: oklch(70.5% 0.213 47.604);
+  --color-green-100: oklch(79.2% 0.209 151.711);
+  --color-green-200: oklch(72.3% 0.219 149.579);
+  --color-green-300: oklch(62.7% 0.194 149.214);
+  --color-border-skill: rgba(255, 255, 255, 0.04);
+  --color-orangeHover-bg: rgba(242, 78, 30, 0.082);
+  --color-orangeHover-border: rgba(242, 78, 30, 0.125) 0px 10px 30px -10px;
+
+  /* figma */
+  --color-orange-100: rgb(242, 78, 30);
+  --color-borderOrange-100: rgb(242 78 30 / 25%);
+  --color-bgIconOrange: rgb(242 78 30 / 14%);
+  --color-bgOrangeDark: rgb(242 78 30 / 8%);
+  --shadow-bgIcon-orange: rgba(242, 78, 30, 0.19) 0px 0px 20px inset;
+
+  /* tailwind */
+  --color-blue-100: rgb(97, 218, 251);
+  --color-bgIconBlue-100: rgb(97 218 251 / 14%);
+  --color-bgBlueDark-100: rgb(97 218 251 / 8%);
+  --color-borderBlue-100: rgba(97, 218, 251, 0.25);
+  --shadow-bgIcon-blue100: rgba(6, 182, 212, 0.19) 0px 0px 20px inset
+    /* javascript */ --color-javaIcon: rgb(247, 223, 30);
+  --color-bgIconYellow-100: rgb(247 223 30 / 14%);
+  --color-bgYellowDark-100: rgba(247, 223, 30, 0.082);
+  --color-borderYellow-100: rgb(247 223 30 / 25%);
+  --shadow-bgIcon-Yellow100: rgba(247, 223, 30, 0.19) 0px 0px 20px inset;
+
+  /* css */
+  --color-blue-200: rgb(38, 77, 228);
+  --color-bgIconBlue-200: rgb(38 77 228 / 14%);
+  --color-bgBlueDark-200: rgb(38 77 228 / 8%);
+  --color-borderBlue-200: rgb(38 77 228 / 25%);
+  --shadow-bgIcon-blue200: rgba(38, 77, 228, 0.19) 0px 0px 20px inset;
+
+  /* nextjs */
+  --color-purple-100: rgb(121, 82, 179);
+  --color-bgIconPurple: rgb(121 82 179 / 14%);
+  --color-bgPurpleDark: rgb(121 82 179 / 8%);
+  --color-borderPurple-100: rgb(121 82 179 / 25%);
+  --shadow-bgIcon-purple100: rgba(121, 82, 179, 0.19) 0px 0px 20px inset;
+
+  /* github-nextjs */
+  --color-githubIcon: rgb(230, 237, 243);
+  --color-bgIconGray-100: rgba(230, 237, 243, 0.145);
+  --color-bgGrayDark-100: rgba(230, 237, 243, 0.082);
+  --color-borderGray-100: rrgb(255 255 255 / 4%);
+  --shadow-bgIcon-gray100: rgba(230, 237, 243, 0.19) 0px 0px 20px inset;
+}
