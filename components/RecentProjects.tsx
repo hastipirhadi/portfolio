@@ -141,7 +141,7 @@ const RecentProjects = () => {
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-        <h1 className="text-white text-center lg:text-left font-extrabold text-[54px] md:text-[80px] lg:text-[94px] leading-tight m-0 p-0">
+        <h1 className="text-white text-center lg:text-left font-extrabold text-[38px] sm:text-[52px] md:text-[72px] lg:text-[94px] leading-[1.15] m-0 p-0">
           RECENT
           <span className="block text-textGray-100">PROJECTS</span>
         </h1>

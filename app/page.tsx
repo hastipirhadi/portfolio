@@ -8,7 +8,7 @@ import Skills from "@/components/Skills";
 
 const HomePage = () => {
   return (
-    <main className="min-h-screen p-15">
+    <main className="min-h-screen md:p-8 lg:p-12">
       <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-10">
         <div className=" mb-20">
           <Navbar />

@@ -12,6 +12,8 @@ type FormData = {
 
 const ContactForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const {
     register,
@@ -20,9 +22,25 @@ const ContactForm = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-    setIsSubmitted(true);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    setIsSending(true);
+    setIsError(false);
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          ...data,
+        }),
+      });
+      if (!res.ok) throw new Error();
+      setIsSubmitted(true);
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleSendAnother = () => {
@@ -30,15 +48,23 @@ const ContactForm = () => {
     reset();
   };
 
+  const inputBase =
+    "w-full text-gray-300 text-base sm:text-sm bg-[#1e1c1b] px-3.5 py-3 rounded-xl placeholder-gray-600 border outline-none focus:bg-[#252321] transition-all duration-200 placeholder:text-xs";
+
+  const inputState = (hasError?: unknown) =>
+    hasError
+      ? "border-red-500/70 focus:border-red-500"
+      : "border-white/[0.07] focus:border-orange-500/60";
+
   return (
-    <div id="contact" className=" mb-">
-      <h1 className="flex flex-col justify-center text-center lg:text-left text-white font-extrabold text-[54px] md:text-[80px] lg:text-[94px] leading-tight mb-10">
+    <div id="contact" className="mb-24">
+      <h1 className="flex flex-col justify-center text-center lg:text-left text-white font-extrabold text-[42px] md:text-[72px] lg:text-[94px] leading-[1.15] mb-8 md:mb-10">
         LET&apos;S WORK
         <span className="text-textGray-100">TOGETHER</span>
       </h1>
 
-      <div className="bg-[#1c1b19]/40 backdrop-blur-xl border border-white/[0.05] p-8 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-orange-500/5 rounded-full blur-[80px] group-hover:bg-orange-500/10 transition-all duration-700" />
+      <div className="bg-[#1c1b19]/40 backdrop-blur-xl border border-white/[0.05] p-5 sm:p-8 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-orange-500/5 `rounded-full blur-[80px] group-hover:bg-orange-500/10 transition-all duration-700" />
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-orange-500/5 rounded-full blur-[80px] group-hover:bg-orange-500/10 transition-all duration-700" />
 
         {!isSubmitted ? (
@@ -48,6 +74,7 @@ const ContactForm = () => {
             noValidate
           >
             <div className="flex flex-col md:flex-row gap-6">
+              {/* Full Name */}
               <div className="flex flex-col flex-1 gap-2.5">
                 <label htmlFor="fullName" className="text-textGray-400 text-xs">
                   Your Full Name
@@ -55,11 +82,7 @@ const ContactForm = () => {
 
                 <input
                   id="fullName"
-                  className={`w-full text-gray-300 text-sm bg-[#1e1c1b] p-2.5 rounded-lg placeholder-gray-600 border outline-none focus:bg-[#252321] transition-all duration-200 placeholder:text-xs ${
-                    errors.fullName
-                      ? "border-red-500/70 focus:border-red-500"
-                      : "border-white/[0.07] focus:border-orange-500/60"
-                  }`}
+                  className={`${inputBase} ${inputState(errors.fullName)}`}
                   type="text"
                   placeholder="john doe"
                   {...register("fullName", {
@@ -82,11 +105,7 @@ const ContactForm = () => {
 
                 <input
                   id="email"
-                  className={`w-full text-gray-300 text-sm bg-[#1e1c1b] p-2.5 rounded-lg placeholder-gray-600 border outline-none focus:bg-[#252321] transition-all duration-200 placeholder:text-xs ${
-                    errors.email
-                      ? "border-red-500/70 focus:border-red-500"
-                      : "border-white/[0.07] focus:border-orange-500/60"
-                  }`}
+                  className={`${inputBase} ${inputState(errors.email)}`}
                   type="email"
                   placeholder="john@example.com"
                   {...register("email", {
@@ -107,14 +126,14 @@ const ContactForm = () => {
             </div>
 
             {/* Subject */}
-            <div className="flex flex-col flex-1 gap-2.5">
+            <div className="flex flex-col gap-2.5">
               <label htmlFor="subject" className="text-textGray-400 text-xs">
                 Subject of Interest
               </label>
 
               <select
                 id="subject"
-                className="w-full text-gray-300 text-sm bg-[#1e1c1b] p-2.5 rounded-lg border border-white/[0.07] outline-none focus:border-orange-500/60 focus:bg-[#252321] transition-all duration-200 cursor-pointer"
+                className={`${inputBase} ${inputState(errors.subject)} cursor-pointer`}
                 {...register("subject", {
                   required: "Please select a subject",
                 })}
@@ -126,21 +145,18 @@ const ContactForm = () => {
                 >
                   Select a subject
                 </option>
-
                 <option
                   value="freelance"
                   className="text-textGray-400 text-sm bg-[#1e1c1b]"
                 >
                   Freelance Project
                 </option>
-
                 <option
                   value="job"
                   className="text-textGray-400 text-sm bg-[#1e1c1b]"
                 >
                   Job Opportunity
                 </option>
-
                 <option
                   value="hi"
                   className="text-textGray-400 text-sm bg-[#1e1c1b]"
@@ -157,7 +173,7 @@ const ContactForm = () => {
             </div>
 
             {/* Message */}
-            <div className="flex flex-col flex-1 gap-2.5">
+            <div className="flex flex-col gap-2.5">
               <label htmlFor="message" className="text-textGray-400 text-xs">
                 Message
               </label>
@@ -166,11 +182,7 @@ const ContactForm = () => {
                 id="message"
                 placeholder="Tell me about your project..."
                 rows={6}
-                className={`w-full text-gray-300 text-sm bg-[#1e1c1b] p-2.5 rounded-lg placeholder-gray-600 border outline-none focus:bg-[#252321] transition-all duration-200 placeholder:text-xs ${
-                  errors.message
-                    ? "border-red-500/70 focus:border-red-500"
-                    : "border-white/[0.07] focus:border-orange-500/60"
-                }`}
+                className={`${inputBase} ${inputState(errors.message)} resize-none`}
                 {...register("message", {
                   required: "Message is required",
                 })}
@@ -183,13 +195,21 @@ const ContactForm = () => {
               )}
             </div>
 
+            {/* Error */}
+            {isError && (
+              <p className="text-red-400 text-xs text-center">
+                Something went wrong. Please try again.
+              </p>
+            )}
+
             {/* Submit */}
             <div className="pt-5">
               <button
                 type="submit"
-                className="w-full bg-white text-black font-bold py-4 rounded-2xl text-lg tracking-widest uppercase hover:bg-orange-500 hover:text-white transition-all duration-500 shadow-[0_10px_30px_-10px_rgba(255,255,255,0.2)] hover:shadow-orange-500/30 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                disabled={isSending}
+                className="w-full bg-white text-black font-bold py-3.5 md:py-4 rounded-2xl text-base sm:text-lg tracking-widest uppercase hover:bg-orange-500 hover:text-white transition-all duration-500 shadow-[0_10px_30px_-10px_rgba(255,255,255,0.2)] hover:shadow-orange-500/30 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                Send Message
+                {isSending ? "Sending..." : "Send Message"}
               </button>
             </div>
           </form>

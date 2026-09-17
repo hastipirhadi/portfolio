@@ -77,7 +77,7 @@ const Skills = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className=" flex flex-col justify-center text-center lg:text-left text-white font-extrabold text-[42px] leading-[0.95] sm:text-[52px] md:text-[68px] lg:text-[82px] xl:text-[94px] m-0 p-0 "
+        className=" flex flex-col justify-center text-center lg:text-left text-white font-extrabold text-[42px] leading-[1.15] sm:text-[52px] md:text-[68px] lg:text-[82px] xl:text-[94px] m-0 p-0 "
       >
         
         TECHNICAL <span className="text-textGray-100"> SKILLS </span>

@@ -44,7 +44,7 @@ const Experience = () => {
           duration: 0.7,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="flex flex-col justify-center text-center lg:text-left text-white font-extrabold text-[54px] md:text-[80px] lg:text-[94px] leading-tight mb-10"
+       className="flex flex-col items-center sm:items-center md:items-center lg:items-start text-center lg:text-left text-white font-extrabold text-[38px] sm:text-[52px] md:text-[72px] lg:text-[94px] leading-[1.15] mb-10"
       >
         RELEVANT
         <span className="text-textGray-100">EXPERIENCE</span>
@@ -77,7 +77,7 @@ const Experience = () => {
               variants={{
                 hidden: {
                   opacity: 0,
-                  x:10,
+                  x: 10,
                 },
                 visible: {
                   opacity: 1,
@@ -93,7 +93,6 @@ const Experience = () => {
                   duration: 0.3,
                 },
               }}
-              
               className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-3xl sm:rounded-4xl group border border-transparent transition-all duration-500 hover:bg-white/[0.03] hover:border-white/[0.08] mb-3 backdrop-blur-sm relative overflow-hidden"
             >
               {/* ORANGE GLOW */}
